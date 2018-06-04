@@ -327,35 +327,71 @@ html, body {
 .bodyer_like {
     width: 1300px;
     margin: 0 auto;
-}
-
-.bodyer_like ul {
-    width: 10000px;
-    height: 500px;
+    position: relative;
+    padding-bottom: 50px;
+    overflow: hidden;
 
 }
+.bodyer{overflow: hidden}
+.bodyer_like > div {
+    margin-top: 100px;
+    width: 800%;
+    position: relative;
 
-.bodyer_like ul li {
+}
+
+.bodyer_like div ul {
     width: 1300px;
-    float: left;
-    height: 600px;
-    border: 1px solid #000;
-
-}
-
-.bodyer_like ul li a p {
-    width: 300px
-}
-.bodyer_like ul li a img{
-    width: 300px;
-}
-
-.bodyer_like ul li a div {
     display: flex;
-    width: 250px;
-    height: 200px;
-    flex-wrap: nowrap;
-
+    justify-content: space-around;
+    float: left;
 
 }
 
+.bodyer_like div ul li {
+    width: 18%
+}
+
+.bodyer_like div ul li p {
+    height: 30px
+}
+
+.bodyer_like div ul li div {
+    margin-top: 40px
+}
+
+.bodyer_like > img {
+    position: absolute;
+    opacity: 0.5;
+    display: none;
+
+}
+
+.bodyer_like > img:nth-of-type(1) {
+    left: 0px;
+    top: 171px;
+}
+
+.bodyer_like > img:nth-of-type(2) {
+    right: 0px;
+    top: 171px;
+}
+
+
+.bodyer_like ol {
+    position: absolute;
+    left: 500px;
+    top: 460px;
+}
+
+.bodyer_like ol li {
+    width: 40px;
+    margin: 0 3px;
+    background: wheat;
+    float: left;
+    height: 5px;
+}
+
+.bodyer_like ol li:nth-of-type(1) {
+    background: orange;
+}

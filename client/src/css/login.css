@@ -218,7 +218,7 @@ a {
 }
 
 .footer_top > ul {
-    width: 200px;
+    width: 300px;
     text-align: center;
     float: left;
 }
@@ -247,7 +247,7 @@ a {
 
 .footer_body > span {
     font-size: 14px;
-    margin-right: 15px;
+    margin-right: 40px;
 }
 
 .footer_body > span:first-child {

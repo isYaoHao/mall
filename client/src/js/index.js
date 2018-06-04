@@ -94,28 +94,126 @@ require(["config"], function () {
 
         //图片自动变大
 
-        $(".bodyer_list ul li").on("mouseenter",function () {
+        $(".bodyer_list ul li").on("mouseenter", function () {
             console.log(1);
-            $(this).children().children("div").css("border-bottom","6px solid orange")
-            $(this).children().children("h2").css("color","orange")
+            $(this).children().children("div").css("border-bottom", "6px solid orange")
+            $(this).children().children("h2").css("color", "orange")
 
             $(this).children().stop(true).children("div").children("img").animate({
-                height:363,width:640
-            },200,"swing")
+                height: 363, width: 640
+            }, 200, "swing")
 
 
         }).mouseleave(function () {
-            $(this).children().children("div").css("border-bottom","none")
+            $(this).children().children("div").css("border-bottom", "none")
 
             $(this).stop(true).children().children("div").children("img").animate({
-                height:343,width:630
-            },200,"swing")
-            $(this).children().children("h2").css("color","black")
+                height: 343, width: 630
+            }, 200, "swing")
+            $(this).children().children("h2").css("color", "black")
 
 
         })
 
 
+        //底部引用
+        $(".foot").load("indexfoot.html");
+
+        //like轮播图;
+
+        var timer;
+        var n = 0;
+        var q = 0
+
+        $(".bodyer_like").on("mouseenter", function () {
+            clearInterval(timer)
+
+            $(".bodyer_like").children("img").show(200)
+
+        }).mouseleave(function () {
+            $(".bodyer_like").children("img").hide(200)
+
+            timer = setInterval(function () {
+                n++;
+                if (n == 5) {
+                    n = 1;
+                    $(".bodyer_like>div").css("left", "0")
+
+                }
+                $(".bodyer_like>div").stop().animate({
+                    left: -1300 * n
+                }, 500)
+
+                q++;
+
+                q = q == 5 ? 0 : q;
+                $(".bodyer_like ol li").css("background", "wheat").eq(q).css("background", "orange")
+
+
+            }, 3000)
+
+
+        });
+
+        $(".bodyer_like>img").eq(0).on("click", function () {
+            n--;
+            if (n < 0) {
+                n = 4;
+                $(".bodyer_like>div").css("left", `-${1300 * 5}px`)
+
+            }
+            $(".bodyer_like>div").stop().animate({
+                left: -1300 * n
+            }, 500)
+
+            q--;
+
+            q = q < 0 ? 4 : q
+            $(".bodyer_like ol li").css("background", "wheat").eq(q).css("background", "orange")
+
+
+        })
+
+        $(".bodyer_like>img").eq(1).on("click", function () {
+            n++;
+            if (n == 5) {
+                n = 1;
+                $(".bodyer_like>div").css("left", "0")
+
+            }
+            $(".bodyer_like>div").stop().animate({
+                left: -1300 * n
+            }, 500)
+
+            q++;
+
+            q = q == 5 ? 0 : q
+            $(".bodyer_like ol li").css("background", "wheat").eq(q).css("background", "orange")
+
+
+        })
+
+        //自动轮播;
+
+
+        timer = setInterval(function () {
+            n++;
+            if (n == 5) {
+                n = 1;
+                $(".bodyer_like>div").css("left", "0")
+
+            }
+            $(".bodyer_like>div").stop().animate({
+                left: -1300 * n
+            }, 500)
+
+            q++;
+
+            q = q == 5 ? 0 : q
+            $(".bodyer_like ol li").css("background", "wheat").eq(q).css("background", "orange")
+
+
+        }, 3000)
 
 
     })
