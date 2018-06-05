@@ -2,11 +2,13 @@ require(["config"], function () {
     require(["jquery"], function () {
 
         $(".header").load("navheader.html")
+        $(".footer").load("indexfoot.html")
+
 
         $(window).ready(function () {
 
 
-            console.log($(".nav_list"))
+            console.log($(".nav_list"));
 
             //li标签切换功能;
             $(".nav_list").children("li").on("mouseover", function () {
@@ -87,6 +89,8 @@ require(["config"], function () {
 
                 }, 100);
             })
+
+
 
 
         })
