@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.bodyer {
+    width: 100%
+}
+
+.bodyer_cld {
+    width: 1300px;
+    margin: 0 auto;
+}
+.bodyer_top{
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+
+}
+.bodyer_top a{
+    color: black;
+    font-size:12px;
+}
+.bodyer_top>span{
+    font-size:12px;
+    position: relative;
+    left: 590px;
+
+}
