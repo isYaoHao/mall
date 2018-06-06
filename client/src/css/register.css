@@ -45,3 +45,33 @@
     text-align: center;
     background: orange;
 }
+form{
+    position: relative;
+}
+form>p{
+    font-size: 12px;
+}
+form label{
+    width: 200px;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    text-align: right;
+    left: 71px;
+    position: absolute;
+    color:red;
+    font-weight: bold;
+}
+#uname-error{
+
+
+    top: 11px;
+
+}
+#upwd-error{
+    top: 91px    ;
+}
+#rupwd-error{
+    top: 169px    ;
+}
+input.error { border: 1px solid red; }

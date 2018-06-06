@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css/index.css">
+
+    <script src="js/lib/jquery-1.11.1.min.js"></script>
+    <script src="js/navheader.js"></script>
+    <link rel="stylesheet" href="css/navheader.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+
 </head>
 <body>
 <div class="header">
@@ -15,13 +20,13 @@
         </div>
         <div><img src="http://pic14.secooimg.com/push/17/9/95501ef8c0d34a60a9d57d94b842c1ec.png" alt=""></div>
         <div>
-            <ul>
-                <li><a href="#">请登录</a><span>|</span><a href="#">免费注册</a></li>
+            <ul id="navList">
+                <li><a href="login.html">请登录</a><span>|</span><a href="register.html">免费注册</a></li>
                 <li><a href="#">客户服务</a></li>
                 <li><a href="#">媒体聚焦</a></li>
             </ul>
-            <div>
-                购物车(<span>0</span>)
+            <div id="buyCart" class="iconfont ">
+                &#xe600;购物车(<span>0</span>)
             </div>
         </div>
     </div>
@@ -153,3 +158,5 @@
 
 </body>
 </html>
+
+

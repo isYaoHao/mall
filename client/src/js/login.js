@@ -1,5 +1,5 @@
 require(["config"], function () {
-    require(["jquery", "jquery.md5", "jquery.validation", "additional.methods", "jquery.idcode"], function () {
+    require(["jquery", "md5", "jquery.validation", "additional.methods", "idcode"], function () {
         //鼠标移入二维码事件;
         $(".login_body").on("mouseover", function () {
             $("#loginIdcode").stop().animate({height: 120, width: 120, left: 20, top: 70}, 400)
@@ -17,6 +17,48 @@ require(["config"], function () {
             $(this).children("a").css("color", "orange");
             $(".login_body").children().attr("style", "display:none")
             $(".login_body").children().eq(index).attr("style", "display:block")
+
+
+        });
+        $.idcode.setCode();
+
+        //表单;
+        $("#myform").validate({
+
+            submitHandler: function () {
+                if($.idcode.validateCode()){
+
+
+                    $.ajax({
+                        url:"http://127.0.0.1/php01/secoonet/server/login.php",
+                        data:{
+                            uname:$("[name=uname]").val(),
+                            upwd:$.md5($("[name=upwd]").val())
+
+                        },
+                        dataType:"json",
+                        type:"POST"
+
+
+                    }).then(function (res) {
+
+                        if(res.status==1){
+
+                            window.sessionStorage.setItem("user",res.data)
+
+
+                            window.location.href="index.html"
+                        } else {
+                            alert(res.msg)
+                        }
+                    })
+
+                } else {
+                    alert("验证码错误")
+                }
+                return false;
+
+            }
 
 
         })

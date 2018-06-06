@@ -5,8 +5,11 @@ require(["config"], function () {
         var num = 0;
         var suq = 0;
 
+        $(".header").load("navheader.html",function () {
+            jQuery.getScript("js/navheader.js")
+        })
 
-        //li标签切换功能;
+/*        //li标签切换功能;
         $(".nav_list").children("li").on("mouseover", function () {
             $(".nav_list").children("li").children("div").css("display", "none")
             $(this).children("div").css("display", "block");
@@ -22,7 +25,7 @@ require(["config"], function () {
         })
         $(".nav").mouseout(function () {
             $(".list").css("display", "none")
-        })
+        })*/
 
         //小箭头出现事件
         $(".bodyer_top").on("mouseover", function () {
@@ -214,6 +217,18 @@ require(["config"], function () {
 
 
         }, 3000)
+
+        //点击进入详情页;
+
+        $("#bodyList li").on("click",function () {
+
+            window.localStorage.setItem("datalist",$(this).children("a").data("info"))
+            window.location.href="datalist.html";
+
+        })
+
+
+
 
 
     })

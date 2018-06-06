@@ -2,38 +2,100 @@ require(["config"], function () {
     require(["jquery", "md5", "jquery.validation", "additional.methods", "idcode"], function () {
 
 
+        console.log();
+
+
         $(function () {
+
+
 
             $(".header").load('indexheader.html');
             $(".footer").load('indexfoot.html');
             console.log($("#myform"));
 
             $("#myform").validate({
-                  submitHandler: function () {
-                      return false;
+                submitHandler: function () {
 
 
-                  },
+                    if ($('#ckb').prop("checked")) {
+
+                        $.ajax({
+                            data:{
+                                uname:$("[name=uname]").val(),
+                                upwd:$.md5($("[name=upwd]").val())
+                            },
+                            dataType:"json",
+                            url:"http://127.0.0.1/php01/secoonet/server/register.php",
+                            type:"POST"
+                        }).then(function (res) {
+
+                            if(res.status==1){
+                                alert(res.msg)
+                                window.location.href="login.html"
+
+
+                            } else {
+                                alert(res.msg)
+                            }
+
+
+
+                        })
+
+
+
+                    } else {
+                        alert("已阅读并同意《寺库网用户注册协议》")
+                    }
+                    return false;
+
+
+                },
                 rules: {
-                    "uname": {
-                        "require": "true",
-                        "rangelength": [6, 18],
-
+                    uname: {
+                        required: true,
+                        rangelength: [5, 10],
+                        word: true,
                         remote: {
                             url: "http://127.0.0.1/php01/secoonet/server/registerremote.php",
                             dataType: "json",
-                            type:"get"
+                            type: "get"
                         }
 
                     },
-                    "upwd": {
-                        "require": "true",
-                        "rangelength": [6, 18]
+                    upwd: {
+                        required: true,
+                        rangelength: [5, 10],
+                    },
+                    rupwd: {
+                        equalTo: $("#upwd")
+                    }
+                },
+                messages: {
+                    uname: {
+                        required: "用户名必填",
+                        rangelength: "用户名长度必须6-18之间",
+                        remote: "该用户名已经存在"
+                    },
+                    upwd: {
+                        required: "密码必填",
+                        rangelength: "密码长度必须6-18之间"
+                    },
+                    rupwd: {
+                        equalTo: "两次密码不一致"
                     }
                 }
+
+
             })
 
         })
+
+        $.validator.addMethod("word", function (str) {
+            return /^[a-zA-Z]+\w/.test(str)
+
+
+        }, "必须是字母或数字,且首字为字母");
 
 
     })
