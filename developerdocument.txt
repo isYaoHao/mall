@@ -1,0 +1,25 @@
+
+
+//寺库开发者文档
+
+//sql要求
+
+//商品详情库
+表名:secoonet.goodsdata
+首字段:goodsid
+商品名称类:goodsname1
+商品短名称:goodsname2
+商品详情名称:goodsname3
+
+商品图片1:goodspt1
+商品图片2:goodspt2
+商品图片3:goodspt3
+
+商品故事:goodsstr
+商品价格:goodsprice;
+
+//用户信息库
+表名:secoonet.user
+自增长量 user_id 
+用户名称 user_name
+用户密码 user_pwd
