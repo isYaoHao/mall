@@ -152,7 +152,6 @@ require(["config"], function () {
             
             $("#payBox").on("click",function () {
 
-                console.log(Boolean(window.sessionStorage.getItem("user")));
                 //判断是否登录
                 if(window.sessionStorage.getItem("user")){
 
@@ -186,6 +185,71 @@ require(["config"], function () {
 
                 }
                 
+            })
+
+            //添加购物车事件
+
+            $("#cartBox").on("click",function () {
+
+                if(window.sessionStorage.getItem("user")){
+
+                    var datauser=JSON.parse(window.sessionStorage.getItem("user"))
+                    var pid=$.trim($("#pid").text())
+                    var paynum=$("#paynum").val();
+
+                    console.log(datauser.uname);
+                    console.log(pid);
+                    console.log(paynum);
+
+                    $.ajax({
+                        data:{
+                            username:datauser.uname,
+                            goodsid:pid,
+                            goodsnum:paynum
+                        },
+                        url:"http://127.0.0.1/php01/secoonet/server/paydata.php",
+                        type:"POST",
+                        dataType:"json"
+                    }).then(function (res) {
+
+                        console.log(res);
+
+                    })
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+                if(sessionStorage.length>=1){
+                    var userData=JSON.parse(window.sessionStorage.getItem("user"))
+
+
+
+                    $.ajax({
+                        data:{username:userData.uname},
+                        type:"POST",
+                        url:"http://127.0.0.1/php01/secoonet/server/buycart.php",
+                        dataType:"json"
+
+                    }).then(function (res) {
+
+                        console.log(res);
+                        $("#cartNum").text(res.sumb)
+
+                    })
+
+
+                }
+
             })
 
             

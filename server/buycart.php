@@ -60,11 +60,13 @@ LEFT JOIN
         $conn->query($drop);
         $conn->query($create);
 
-        $sql="select * from secoonet.tmp_data where username='".$_REQUEST["username"]."'";
+        $sql="SELECT username,SUM(goodsnum)sumb FROM secoonet.tmp_data WHERE username='".$_REQUEST["username"]."' GROUP BY 1";
 
-        $res=$conn->query($sql);
+        $res=$conn->query($sql)->fetch_assoc();
 
-        $putarr=Array();
+        print_r(json_encode($res));
+
+        /*$putarr=Array();
 
         while ($result=$res->fetch_assoc()){
             $rs=Array();
@@ -84,7 +86,7 @@ LEFT JOIN
 
 
 
-        $conn->close();
+        $conn->close();*/
 
 
     }

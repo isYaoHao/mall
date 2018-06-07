@@ -28,8 +28,23 @@ $(function () {
         $("#navList li").eq(0).html(`您好,<a href="javascript:">${userData.uname}</a>`)
 
 
+        $.ajax({
+            data:{username:userData.uname},
+            type:"POST",
+            url:"http://127.0.0.1/php01/secoonet/server/buycart.php",
+            dataType:"json"
+
+        }).then(function (res) {
+
+            console.log(res);
+            $("#cartNum").text(res.sumb)
+
+        })
+
 
     }
+
+
 
     //
 
