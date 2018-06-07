@@ -525,9 +525,11 @@
     font-size: 12px;
     opacity: 0.7;
 }
-
+.bodyer_cld{
+    position: relative;
+}
 .data_left_big {position: relative}
-.data_left_big div{
+#moveBox{
     position: absolute;
     left: 0;
     top: 0;
@@ -536,4 +538,20 @@
     background: blue;
     opacity: 0.2;
 }
+#leftBox{
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    left: 595px;
+    top: 35px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#leftBox>div{
+    height: 400px;
+    width: 400px;
+    background: black;
 
+}

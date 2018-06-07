@@ -66,6 +66,8 @@ require(["config"], function () {
 
                 $(".data_left_big img").attr("src", $(this).children("img").attr("src"))
 
+                $("#leftBox img").prop("src",$(".data_left_big img").prop("src"))
+
             }).mouseleave(function () {
                 $(this).css("border-style", "none");
 
@@ -114,6 +116,9 @@ require(["config"], function () {
             })
 
             //放大镜功能;
+            console.log($(".data_left_big img").eq(0).prop("src"));
+
+            $("#leftBox img").prop("src",$(".data_left_big img").prop("src"))
 
             var moveBoxWigth = $("#moveBox").width(),
                 moveBoxHeight = $("#moveBox").height(),
@@ -127,12 +132,63 @@ require(["config"], function () {
             });
 
             $(".data_left_big").on("mousemove",function (evt) {
+                $("#moveBox").show();
+
+                $("#leftBox").show();
+
                 $("#moveBox").offset({
                     left: (evt.pageX - moveBoxWigth / 2),
                     top: evt.pageY - moveBoxHeight / 2
                 })
 
+            }).mouseleave(function () {
+                $("#moveBox").hide();
+                $("#leftBox").hide();
+
             })
+
+
+            //购物车点击事件
+            
+            $("#payBox").on("click",function () {
+
+                console.log(Boolean(window.sessionStorage.getItem("user")));
+                //判断是否登录
+                if(window.sessionStorage.getItem("user")){
+
+                    var datauser=JSON.parse(window.sessionStorage.getItem("user"))
+                    var pid=$.trim($("#pid").text())
+                    var paynum=$("#paynum").val();
+
+                    console.log(datauser.uname);
+                    console.log(pid);
+                    console.log(paynum);
+
+                    $.ajax({
+                        data:{
+                            username:datauser.uname,
+                            goodsid:pid,
+                            goodsnum:paynum
+                        },
+                        url:"http://127.0.0.1/php01/secoonet/server/paydata.php",
+                        type:"POST",
+                        dataType:"json"
+                    }).then(function (res) {
+
+                        console.log(res);
+                        window.location.href="paydata.html"
+
+                    })
+
+
+
+
+
+                }
+                
+            })
+
+            
 
 
 

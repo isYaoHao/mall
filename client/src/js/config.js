@@ -4,6 +4,7 @@
 define("config",function () {
 
     require.config({
+        urlArgs:"v="+new Date().getTime(),
         baseUrl:"./js",
         paths:{
             "jquery":["lib/jquery-1.11.1.min"],
