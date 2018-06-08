@@ -548,10 +548,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 #leftBox>div{
     height: 400px;
     width: 400px;
     background: black;
+    overflow: hidden;
+    position: relative;
+}
 
+#moveIMG{
+    height: 1000px;
+    width: 1000px;
+    position: absolute;
+    display: block;
+
+}
+
+#big{
+    width: 1000px;
+    height: 1000px;
 }

@@ -1,5 +1,3 @@
-
-
 $(function () {
 
 
@@ -21,23 +19,65 @@ $(function () {
         $(".list").css("display", "none")
     })
 
+    //未登录游客状态
+    window.localStorage.setItem("user",JSON.stringify({uname:"游客"}))
+
+
     //登录信息加载;
-    if(sessionStorage.length>=1){
-        var userData=JSON.parse(window.sessionStorage.getItem("user"))
+    if (sessionStorage.length >= 1) {
+        var userData = JSON.parse(window.sessionStorage.getItem("user"))
         console.log(userData.uname);
         $("#navList li").eq(0).html(`您好,<a href="javascript:">${userData.uname}</a>`)
 
 
         $.ajax({
-            data:{username:userData.uname},
-            type:"POST",
-            url:"http://127.0.0.1/php01/secoonet/server/buycart.php",
-            dataType:"json"
+            data: {username: userData.uname},
+            type: "POST",
+            url: "http://127.0.0.1/php01/secoonet/server/buycart.php",
+            dataType: "json"
 
         }).then(function (res) {
 
-            console.log(res);
-            $("#cartNum").text(res.sumb)
+            if(res){
+                $("#cartNum").text(res.sumb)
+            } else {
+                $("#cartNum").text(0)
+            }
+
+        })
+
+
+    } else {
+
+
+
+        var userData = JSON.parse(window.localStorage.getItem("user"))
+        console.log(userData.uname);
+        $("#navList li").eq(0).html(`<a href="login.html">${userData.uname}</a>点击登录`)
+
+        console.log(userData);
+
+
+        $.ajax({
+            data: {username:"游客"},
+            type: "POST",
+            url: "http://127.0.0.1/php01/secoonet/server/buycart.php",
+            dataType: "json"
+
+        }).then(function (res) {
+
+
+
+
+            if(res){
+                $("#cartNum").text(res.sumb)
+            } else {
+                $("#cartNum").text(0)
+            }
+
+
+
+
 
         })
 
@@ -45,9 +85,7 @@ $(function () {
     }
 
 
-
     //
-
 
 
 })

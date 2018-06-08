@@ -1,8 +1,9 @@
 require(["config"], function () {
     require(["jquery"], function () {
 
-        if (window.sessionStorage.getItem("user")) {
-            var datauser = JSON.parse(window.sessionStorage.getItem("user") || {})
+
+        if (sessionStorage.getItem("user") || localStorage.getItem("user") ||{}) {
+            var datauser = JSON.parse(sessionStorage.getItem("user") || localStorage.getItem("user") ||{})
 
             //登录退出按钮
             $(".bodyer_header").html(`${datauser.uname}<a id="loginout" href="javascript:">  退出</a>`);
@@ -197,6 +198,7 @@ require(["config"], function () {
             }).then(function (res) {
 
                 $("#tab").text("");
+                $("#foottotal").text("0元");
                 console.log(res);
 
                 var sum=0;
@@ -208,9 +210,14 @@ require(["config"], function () {
                     console.log(ele);
 
 
+
+
+
                     var str = "";
 
                     var total = Number(ele.goodsnum) * Number(ele.goodsprice)
+
+
 
 
                     str += `<tr class="infodata" data-info=${JSON.stringify(ele.goodsid)}>`
@@ -223,7 +230,7 @@ require(["config"], function () {
                     str += `<td>¥<span class="total">${total}</span>元</td>`
                     str += `<td><a href="javascript:" class="deleteone">删除</a> </td>`
 
-                    sum+=total
+                    sum+=total;
                     $("#foottotal").text(`¥${sum}元`);
 
 
@@ -302,14 +309,6 @@ require(["config"], function () {
                     })
 
                     console.log($(".cbox:checked").parents("tr").remove());
-
-
-
-
-
-
-
-
 
                 })
 

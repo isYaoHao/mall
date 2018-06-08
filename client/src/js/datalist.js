@@ -47,7 +47,7 @@ require(["config"], function () {
         $(window).ready(function () {
 
 
-            console.log($(".nav_list"));
+            $(".nav_list");
 
 
             //分割区----------------------------------------------------------------------
@@ -62,7 +62,7 @@ require(["config"], function () {
             $(".data_left_list ul li").on("mouseenter", function () {
                 $(this).css("border", "1px dashed #666666 ");
 
-                console.log($(this).children("img").attr("src"));
+                $(this).children("img").attr("src");
 
                 $(".data_left_big img").attr("src", $(this).children("img").attr("src"))
 
@@ -116,46 +116,97 @@ require(["config"], function () {
             })
 
             //放大镜功能;
-            console.log($(".data_left_big img").eq(0).prop("src"));
 
-            $("#leftBox img").prop("src",$(".data_left_big img").prop("src"))
 
-            var moveBoxWigth = $("#moveBox").width(),
+            $(".data_left_big img").eq(0).prop("src")
+            $("#leftBox").css("display","none");
+            $("#moveBox").hide();
+            $("#leftBox img").attr("src",$(".data_left_big img").attr("src"))
+
+
+
+            var moveBoxWidth = $("#moveBox").width(),
                 moveBoxHeight = $("#moveBox").height(),
                 bigBoxWigth = $(".data_left_big").width(),
-                bigBoxHeight = $(".data_left_big").height()
+                bigBoxHeight = $(".data_left_big").height(),
+
+                bigWidth = $('#big').width(),//放大图片盒子的宽度
+                bigHeight = $('#big').height(),//放大图片盒子的高度
 
 
-            $(".data_left_big").on("mouseenter", function () {
-                console.log(1);
+                rateX = bigWidth/moveBoxWidth,//放大区和遮罩层的宽度比例
+                rateY = bigHeight/moveBoxHeight;//放大区和遮罩层的高度比例
 
-            });
 
-            $(".data_left_big").on("mousemove",function (evt) {
+
+
+            $(".data_left_big").hover(function (evt) {
+
                 $("#moveBox").show();
+                $("#leftBox").css("display","flex");
 
-                $("#leftBox").show();
 
-                $("#moveBox").offset({
-                    left: (evt.pageX - moveBoxWigth / 2),
-                    top: evt.pageY - moveBoxHeight / 2
-                })
+                $("#big").show();
 
-            }).mouseleave(function () {
+
+            },function () {
+
                 $("#moveBox").hide();
-                $("#leftBox").hide();
+                $("#big").hide();
+                $("#leftBox").css("display","none");
+
+
+            }).mousemove(function (e) {
+                $("#leftBox img").attr("src",$(".data_left_big img").attr("src"))
+                var x = e.pageX,
+                    y = e.pageY;
+                $("#moveBox").offset({
+                    left:e.pageX - moveBoxWidth / 2,
+                    top: e.pageY - moveBoxHeight / 2
+                })
+                //获取遮罩层相对父元素的位置
+                var cur = $('#moveBox').position(),
+                    _top = cur.top,
+                    _left = cur.left,
+                    hdiffer = bigBoxHeight - moveBoxHeight,
+                    wdiffer = bigBoxWigth - moveBoxWidth;
+                console.log(_left);
+                if (_top < 0) _top = 0;
+                else if (_top > hdiffer) _top = hdiffer;
+                if (_left < 0) _left = 0;
+                else if (_left > wdiffer) _left =wdiffer;
+                console.log(rateY);
+                console.log(-rateX);
+
+                //判断完成后设置遮罩层的范围
+                $('#moveBox').css({
+                    top: _top,
+                    left: _left
+                });
+
+                //设置放大区图片移动
+                $('#moveIMG').css({
+                    top: - rateY*_top*0.63,
+                    left: - rateX*_left*0.63
+                });
+
+
 
             })
+            //封装的改变图片显示的函数
 
 
-            //购物车点击事件
+
+
+
+        //购物车点击事件
             
             $("#payBox").on("click",function () {
 
                 //判断是否登录
-                if(window.sessionStorage.getItem("user")){
+                if(sessionStorage.getItem("user") || localStorage.getItem("user")){
 
-                    var datauser=JSON.parse(window.sessionStorage.getItem("user"))
+                    var datauser=JSON.parse(sessionStorage.getItem("user") || localStorage.getItem("user"))
                     var pid=$.trim($("#pid").text())
                     var paynum=$("#paynum").val();
 
@@ -191,15 +242,12 @@ require(["config"], function () {
 
             $("#cartBox").on("click",function () {
 
-                if(window.sessionStorage.getItem("user")){
+                if(sessionStorage.getItem("user") || localStorage.getItem("user")){
 
-                    var datauser=JSON.parse(window.sessionStorage.getItem("user"))
+                    var datauser=JSON.parse(sessionStorage.getItem("user") || localStorage.getItem("user"))
                     var pid=$.trim($("#pid").text())
                     var paynum=$("#paynum").val();
 
-                    console.log(datauser.uname);
-                    console.log(pid);
-                    console.log(paynum);
 
                     $.ajax({
                         data:{
@@ -212,25 +260,17 @@ require(["config"], function () {
                         dataType:"json"
                     }).then(function (res) {
 
-                        console.log(res);
+
 
                     })
-
-
-
 
 
                 }
 
 
 
-
-
-
-
-
-                if(sessionStorage.length>=1){
-                    var userData=JSON.parse(window.sessionStorage.getItem("user"))
+                if(sessionStorage.getItem("user") || localStorage.getItem("user") ){
+                    var userData=JSON.parse(window.sessionStorage.getItem("user") ||window.localStorage.getItem("user"))
 
 
 
@@ -242,8 +282,11 @@ require(["config"], function () {
 
                     }).then(function (res) {
 
-                        console.log(res);
-                        $("#cartNum").text(res.sumb)
+                        if(res){
+                            $("#cartNum").text(res.sumb)
+                        } else {
+                            $("#cartNum").text(0)
+                        }
 
                     })
 

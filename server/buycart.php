@@ -51,6 +51,7 @@ if($_SERVER["REQUEST_METHOD"]="POST"){
         $result=$snn->execute();*/
 
 
+
         $drop = "DROP TABLE secoonet.tmp_data";
         $create="CREATE TABLE tmp_data AS
 SELECT a.username,a.goodsid,a.goodsnum,b.goodsname3,b.goodsprice,b.goodspt1 FROM secoonet.paydata a
